@@ -1,0 +1,74 @@
+<div class="fil">
+    <br>
+    <h2>BÚSQUEDA DE CASAS POR FILTROS</h2>
+    <div class="filtros">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <table>
+                <tr>
+                    <td>
+                        <label for="idCmbTipoSeguro">Mostrar:</label>
+                        <p-dropdown  name="CmbTipoSeguro" inputId="CmbTipoSeguro" [(ngModel)]="captura.seguros" [options]="listaSeguros"  
+                            placeholder="Selecciona" optionLabel="nombre" optionValue="nombre"> 
+                        </p-dropdown>
+                        <input id="idfiltro" name="txtfiltro" [(ngModel)]="captura.filtro" pInputText  />
+                        <p-button label="Buscar" (click)="onSubmit(f)" name="btnEnviar" class="btn" ></p-button>
+                        
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+ 
+
+    <div *ngIf="datosCasas.length != 0" class="fil">
+        <h3>Casas encontradas</h3>
+        <div *ngFor="let cliente of datosCasas"> 
+            <p-card header='N&uacute;mero de casa: {{cliente.claveCasa}}' [style]="{ width: '360px' }" styleClass="shadow-2" >
+              <ng-template pTemplate="header">
+                <img alt="Card" src="./assets/imgs/fraccPrivada.jpg" />
+              </ng-template>
+            <b>Descripci&oacute;n:</b>  {{cliente.descCasa}}<br>
+            <b>Precio:</b> {{cliente.precio}} MXN<br>
+            <b>Disponibilidad: </b>{{cliente.disponibilidad}}<br>
+            <b>Medidas de construcción:</b> {{cliente.medidasConst}}<br>
+            <b>Tipo: </b>{{cliente.tipoCasa}}
+              <ng-template pTemplate="footer" >
+                <p-button label="Solicitar Cita" icon="pi pi-calendar-minus" routerLink="/casasestados"></p-button><br><br>
+                <p-button label="Apartar casa" icon="pi pi-calendar-minus" routerLink="/login"></p-button>
+              </ng-template>
+            </p-card>
+            <br>
+        </div>
+    </div>
+
+    <div *ngIf="datosFracc.length != 0" class="fil"> 
+        <h3>Fraccionamientos encontrados</h3>  
+        <div *ngFor="let dtosFr of datosFracc"> 
+            <p-card header='{{dtosFr.nomFracc}}' [style]="{ width: '360px' }" styleClass="shadow-2" >
+              <ng-template pTemplate="header">
+                <img alt="Card" src="./assets/imgs/fraccPrivada.jpg" />
+              </ng-template>
+            <b>Número: </b>{{dtosFr.numero}}<br>
+            <b>Direcci&oacute;n:</b>  {{dtosFr.calle}}, {{dtosFr.colonia}}, {{dtosFr.ciudad}}, {{dtosFr.estado}}, CP {{dtosFr.cp}}<br>
+            <b>Servicios :</b> {{dtosFr.servs}} MXN<br>
+            <b>Descripción: </b>{{dtosFr.desc}}<br>
+              <ng-template pTemplate="footer">
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                <input hidden  id="contextPath" name="clave"  disabled value="{{dtosFr.claveFracc}}">
+                <p-button label="Ver casas" icon="pi pi-file-export" routerLink="/inicio" ></p-button>
+              </form>
+              </ng-template>
+            </p-card>
+            <br>
+        </div>
+    </div>
+
+   
+</div>
+
+
+
+
+
+
+                                                            
